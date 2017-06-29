@@ -648,24 +648,25 @@ int getCost(int cardNumber)
 // Refactored card effects
 void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *state){
   int cardDrawn;
-  int drawntreasure=0;
-  while(drawntreasure<2) {
-          if (state->deckCount[currentPlayer] <1) {//if the deck is empty we need to shuffle discard and add to deck
+  int drawntreasure = 0;
+  // bug -> allows the player to reveal cards from their deck until they reveal 3 treasure cards, instead of 2
+  while(drawntreasure < 3) {
+          if (state->deckCount[currentPlayer] < 1) {//if the deck is empty we need to shuffle discard and add to deck
                   shuffle(currentPlayer, state);
           }
           drawCard(currentPlayer, state);
-          cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+          cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1];//top card of hand is most recently drawn card.
           if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
                   drawntreasure++;
           else{
-                  temphand[z]=cardDrawn;
+                  temphand[z] = cardDrawn;
                   state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
                   z++;
           }
   }
-  while(z-1>=0) {
-          state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
-          z=z-1;
+  while(z - 1 >= 0) {
+          state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
+          z = z - 1;
   }
 }
 
@@ -673,7 +674,8 @@ void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *
 void smithyCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+3 Cards
-  for (i = 0; i < 3; i++)
+  // bug -> restricts the player to only add 2 cards to their hand, instead of 3
+  for (i = 0; i < 2; i++)
   {
           drawCard(currentPlayer, state);
   }
@@ -686,7 +688,8 @@ void smithyCard(int currentPlayer, int handPos, struct gameState *state){
 void council_roomCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+4 Cards
-  for (i = 0; i < 4; i++)
+  // bug -> allows the player to add 5 cards to their hand, instead of 4
+  for (i = 0; i < 5; i++)
   {
           drawCard(currentPlayer, state);
   }
@@ -705,7 +708,6 @@ void council_roomCard(int currentPlayer, int handPos, struct gameState *state){
 
   //put played card in played card pile
   discardCard(handPos, currentPlayer, state, 0);
-
 }
 
 
@@ -714,7 +716,8 @@ void villageCard(int currentPlayer, int handPos, struct gameState *state){
   drawCard(currentPlayer, state);
 
   //+2 Actions
-  state->numActions = state->numActions + 2;
+  // bug -> adds 3 to a player's action count, instead of 2
+  state->numActions = state->numActions + 3;
 
   //discard played card from hand
   discardCard(handPos, currentPlayer, state, 0);
@@ -722,7 +725,7 @@ void villageCard(int currentPlayer, int handPos, struct gameState *state){
 
 
 void stewardCard(int currentPlayer, int handPos, int choice1, int choice2,
-                int choice3, struct gameState *state){
+                 int choice3, struct gameState *state){
   if (choice1 == 1)
   {
           //+2 cards
