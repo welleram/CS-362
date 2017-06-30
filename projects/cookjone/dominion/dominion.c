@@ -649,7 +649,7 @@ int getCost(int cardNumber)
 void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *state){
   int cardDrawn;
   int drawntreasure = 0;
-  // bug -> allows the player to reveal cards from their deck until they reveal 3 treasure cards, instead of 2
+  // bug -> allows the player to reveal cards from their deck until they reveal 3 treasure cards, instead of only 2
   while(drawntreasure < 3) {
           if (state->deckCount[currentPlayer] < 1) {//if the deck is empty we need to shuffle discard and add to deck
                   shuffle(currentPlayer, state);
@@ -674,8 +674,8 @@ void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *
 void smithyCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+3 Cards
-  // bug -> restricts the player to only add 2 cards to their hand, instead of 3
-  for (i = 0; i < 2; i++)
+  // bug -> allows the player to add 4 cards to their hand, instead of only 3
+  for (i = 0; i < 4; i++)
   {
           drawCard(currentPlayer, state);
   }
@@ -688,7 +688,7 @@ void smithyCard(int currentPlayer, int handPos, struct gameState *state){
 void council_roomCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+4 Cards
-  // bug -> allows the player to add 5 cards to their hand, instead of 4
+  // bug -> allows the player to add 5 cards to their hand, instead of only 4
   for (i = 0; i < 5; i++)
   {
           drawCard(currentPlayer, state);
@@ -716,7 +716,7 @@ void villageCard(int currentPlayer, int handPos, struct gameState *state){
   drawCard(currentPlayer, state);
 
   //+2 Actions
-  // bug -> adds 3 to a player's action count, instead of 2
+  // bug -> adds 3 to a player's action count, instead of only 2
   state->numActions = state->numActions + 3;
 
   //discard played card from hand
