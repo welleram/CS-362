@@ -1,7 +1,7 @@
         -:    0:Source:unittest2.c
         -:    0:Graph:unittest2.gcno
         -:    0:Data:unittest2.gcda
-        -:    0:Runs:2
+        -:    0:Runs:1
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -13,56 +13,56 @@
         -:    8:int failureCount = 0;
         -:    9:
         -:   10:void assertTrue(int a, int b) {
-        6:   11:    if (a == b) {
-        6:   12:        printf("Test: PASSED\n");
-        6:   13:    }
+        3:   11:    if (a == b) {
+        3:   12:        printf("Test: PASSED\n");
+        3:   13:    }
         -:   14:    else {
     #####:   15:        printf("Test: FAILED\n");
     #####:   16:        failureCount++;
         -:   17:    }
-        6:   18:}
+        3:   18:}
         -:   19:
         -:   20:int main () {
-        2:   21:    int numbPlayers = 2;
-        2:   22:    int k[10] = {adventurer, council_room, feast, gardens, mine,
+        1:   21:    int numbPlayers = 2;
+        1:   22:    int k[10] = {adventurer, council_room, feast, gardens, mine,
         -:   23:               remodel, smithy, village, baron, great_hall};
-        2:   24:    int seed = 2000;
+        1:   24:    int seed = 2000;
         -:   25:    struct gameState state;
         -:   26:
-        2:   27:    printf("Testing -> isGameOver()\n");
+        1:   27:    printf("Testing -> isGameOver()\n");
         -:   28:
-        2:   29:    memset(&state,23,sizeof(struct gameState));
-        2:   30:    initializeGame(numbPlayers, k, seed, &state);
+        1:   29:    memset(&state,23,sizeof(struct gameState));
+        1:   30:    initializeGame(numbPlayers, k, seed, &state);
         -:   31:
-        2:   32:    state.supplyCount[province] = 0;
+        1:   32:    state.supplyCount[province] = 0;
         -:   33:
-        2:   34:    printf("\nProvince cards empty\n");
-        2:   35:    assertTrue(isGameOver(&state),1);
+        1:   34:    printf("\nProvince cards empty\n");
+        1:   35:    assertTrue(isGameOver(&state),1);
         -:   36:
-        2:   37:    state.supplyCount[province] = 1;
+        1:   37:    state.supplyCount[province] = 1;
         -:   38:
-        2:   39:    state.supplyCount[0] = 0;
-        2:   40:    state.supplyCount[1] = 0;
-        2:   41:    state.supplyCount[2] = 0;
+        1:   39:    state.supplyCount[0] = 0;
+        1:   40:    state.supplyCount[1] = 0;
+        1:   41:    state.supplyCount[2] = 0;
         -:   42:
-        2:   43:    printf("\nThree supply piles empty\n");
-        2:   44:    assertTrue(isGameOver(&state),1);
+        1:   43:    printf("\nThree supply piles empty\n");
+        1:   44:    assertTrue(isGameOver(&state),1);
         -:   45:
-        2:   46:    state.supplyCount[0] = 1;
-        2:   47:    state.supplyCount[1] = 1;
-        2:   48:    state.supplyCount[2] = 1;
+        1:   46:    state.supplyCount[0] = 1;
+        1:   47:    state.supplyCount[1] = 1;
+        1:   48:    state.supplyCount[2] = 1;
         -:   49:
-        2:   50:    printf("\nProvince cards not empty\n");
-        2:   51:    printf("\nThree supply piles not empty\n");
-        2:   52:    assertTrue(isGameOver(&state),0);
+        1:   50:    printf("\nProvince cards not empty\n");
+        1:   51:    printf("\nThree supply piles not empty\n");
+        1:   52:    assertTrue(isGameOver(&state),0);
         -:   53:
-        2:   54:    if (failureCount) {
+        1:   54:    if (failureCount) {
     #####:   55:        printf("\nTEST FAILED\n");
     #####:   56:        printf("Fails: %d\n",failureCount);
     #####:   57:    }
         -:   58:    else {
-        2:   59:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+        1:   59:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
         -:   60:    }
         -:   61:
-        2:   62:    return 0;
+        1:   62:    return 0;
         -:   63:}

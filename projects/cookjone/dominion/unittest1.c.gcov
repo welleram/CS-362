@@ -1,7 +1,7 @@
         -:    0:Source:unittest1.c
         -:    0:Graph:unittest1.gcno
         -:    0:Data:unittest1.gcda
-        -:    0:Runs:2
+        -:    0:Runs:1
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -13,84 +13,84 @@
         -:    8:int failureCount = 0;
         -:    9:
         -:   10:void assertTrue(int a, int b) {
-       12:   11:    if (a == b) {
-       12:   12:        printf("Test: PASSED\n");
-       12:   13:    }
+        6:   11:    if (a == b) {
+        6:   12:        printf("Test: PASSED\n");
+        6:   13:    }
         -:   14:    else {
     #####:   15:        printf("Test: FAILED\n");
     #####:   16:        failureCount++;
         -:   17:    }
-       12:   18:}
+        6:   18:}
         -:   19:
         -:   20:
         -:   21:int main () {
         -:   22:    int i, b;
-        2:   23:    int numbPlayers = 2;
-        2:   24:    int player = 0;
-        2:   25:    int k[10] = {adventurer, council_room, feast, gardens, mine,
+        1:   23:    int numbPlayers = 2;
+        1:   24:    int player = 0;
+        1:   25:    int k[10] = {adventurer, council_room, feast, gardens, mine,
         -:   26:               remodel, smithy, village, baron, great_hall};
-        2:   27:    int seed = 2000;
+        1:   27:    int seed = 2000;
         -:   28:    struct gameState state;
         -:   29:    int handCount;
-        2:   30:    int bonus = 1;
+        1:   30:    int bonus = 1;
         -:   31:
         -:   32:    int coppers[MAX_HAND];
         -:   33:    int silvers[MAX_HAND];
         -:   34:    int golds[MAX_HAND];
         -:   35:
-     2004:   36:    for (i = 0; i < MAX_HAND; i++) {
-     1000:   37:        coppers[i] = copper;
-     1000:   38:        silvers[i] = silver;
-     1000:   39:        golds[i] = gold;
-     1000:   40:    }
+     1002:   36:    for (i = 0; i < MAX_HAND; i++) {
+      500:   37:        coppers[i] = copper;
+      500:   38:        silvers[i] = silver;
+      500:   39:        golds[i] = gold;
+      500:   40:    }
         -:   41:
-        2:   42:    printf("Testing -> updateCoins()");
+        1:   42:    printf("Testing -> updateCoins()");
         -:   43:
-       12:   44:    for (handCount = 0; handCount <= 5; handCount = handCount + 5) {
-        4:   45:        printf("\n\nTreasure cards: %d\n",handCount);
-        4:   46:        printf("Bonus: %d\n", bonus);
+        6:   44:    for (handCount = 0; handCount <= 5; handCount = handCount + 5) {
+        2:   45:        printf("\n\nTreasure cards: %d\n",handCount);
+        2:   46:        printf("Bonus: %d\n", bonus);
         -:   47:
-        4:   48:        memset(&state,23,sizeof(struct gameState));
-        4:   49:        b = initializeGame(numbPlayers, k, seed, &state);
-        4:   50:        state.handCount[player] = handCount;
+        2:   48:        memset(&state,23,sizeof(struct gameState));
+        2:   49:        b = initializeGame(numbPlayers, k, seed, &state);
+        2:   50:        state.handCount[player] = handCount;
         -:   51:
-        4:   52:        memcpy(state.hand[player],coppers,sizeof(int)*handCount);
-        4:   53:        updateCoins(player,&state,bonus);
+        2:   52:        memcpy(state.hand[player],coppers,sizeof(int)*handCount);
+        2:   53:        updateCoins(player,&state,bonus);
         -:   54:
-        4:   55:        printf("\nCoin Count - copper\n");
-        4:   56:        printf("Actual: %d\n",state.coins);
-        4:   57:        printf("Expected: %d\n",handCount*1+bonus);
+        2:   55:        printf("\nCoin Count - copper\n");
+        2:   56:        printf("Actual: %d\n",state.coins);
+        2:   57:        printf("Expected: %d\n",handCount*1+bonus);
         -:   58:
-        4:   59:        assertTrue(state.coins,handCount*1+bonus);
+        2:   59:        assertTrue(state.coins,handCount*1+bonus);
         -:   60:
-        4:   61:        memcpy(state.hand[player],silvers,sizeof(int)*handCount);
-        4:   62:        updateCoins(player,&state,bonus);
+        2:   61:        memcpy(state.hand[player],silvers,sizeof(int)*handCount);
+        2:   62:        updateCoins(player,&state,bonus);
         -:   63:
-        4:   64:        printf("\nCoin Count - silver\n");
-        4:   65:        printf("Actual: %d\n",state.coins);
-        4:   66:        printf("Expected: %d\n",handCount*2+bonus);
+        2:   64:        printf("\nCoin Count - silver\n");
+        2:   65:        printf("Actual: %d\n",state.coins);
+        2:   66:        printf("Expected: %d\n",handCount*2+bonus);
         -:   67:
-        4:   68:        assertTrue(state.coins,handCount*2+bonus);
+        2:   68:        assertTrue(state.coins,handCount*2+bonus);
         -:   69:
-        4:   70:        memcpy(state.hand[player],golds,sizeof(int)*handCount);
-        4:   71:        updateCoins(player,&state,bonus);
+        2:   70:        memcpy(state.hand[player],golds,sizeof(int)*handCount);
+        2:   71:        updateCoins(player,&state,bonus);
         -:   72:
-        4:   73:        printf("\nCoin Count - gold\n");
-        4:   74:        printf("Actual: %d\n",state.coins);
-        4:   75:        printf("Expected: %d\n",handCount*3+bonus);
+        2:   73:        printf("\nCoin Count - gold\n");
+        2:   74:        printf("Actual: %d\n",state.coins);
+        2:   75:        printf("Expected: %d\n",handCount*3+bonus);
         -:   76:
-        4:   77:        assertTrue(state.coins,handCount*3+bonus);
+        2:   77:        assertTrue(state.coins,handCount*3+bonus);
         -:   78:
-        4:   79:        bonus = bonus + 2;
-        4:   80:    }
+        2:   79:        bonus = bonus + 2;
+        2:   80:    }
         -:   81:
-        2:   82:    if (failureCount) {
+        1:   82:    if (failureCount) {
     #####:   83:        printf("\nTEST FAILED\n");
     #####:   84:        printf("Fails: %d\n",failureCount);
     #####:   85:    }
         -:   86:    else {
-        2:   87:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+        1:   87:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
         -:   88:    }
         -:   89:
-        2:   90:    return 0;
+        1:   90:    return 0;
         -:   91:}
