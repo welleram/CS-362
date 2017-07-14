@@ -1,0 +1,100 @@
+Result for running Dominion test suit:
+unittest1.c:
+Testing -> updateCoins()
+
+Treasure cards: 0
+Bonus: 1
+
+Coin Count - copper
+Actual: 1
+Expected: 1
+Test: PASSED
+
+Coin Count - silver
+Actual: 1
+Expected: 1
+Test: PASSED
+
+Coin Count - gold
+Actual: 1
+Expected: 1
+Test: PASSED
+
+
+Treasure cards: 5
+Bonus: 3
+
+Coin Count - copper
+Actual: 8
+Expected: 8
+Test: PASSED
+
+Coin Count - silver
+Actual: 13
+Expected: 13
+Test: PASSED
+
+Coin Count - gold
+Actual: 18
+Expected: 18
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+unittest2.c:
+Testing -> isGameOver()
+
+Province cards empty
+Test: PASSED
+
+Three supply piles empty
+Test: PASSED
+
+Province cards not empty
+
+Three supply piles not empty
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+unittest3.c:
+Testing -> shuffle()
+
+Player deck count is 0
+Test: PASSED
+
+Player deck count is 10 before and after shuffle
+Test: PASSED
+
+Cards are shuffled
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+unittest4.c:
+Testing -> gainCard()
+
+Gold supply pile is empty
+Test: PASSED
+
+Add card to deck
+Test: PASSED
+
+Add card to hand
+Test: PASSED
+
+Add card to discard pile
+Test: PASSED
+
+Decrease gold supply
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'dominion.c'
+Lines executed:43.23% of 650
+Branches executed:52.52% of 417
+Taken at least once:35.25% of 417
+No calls
+dominion.c:creating 'dominion.c.gcov'
+

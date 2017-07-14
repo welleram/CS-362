@@ -1,0 +1,66 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:
+        -:    8:int failureCount = 0;
+        -:    9:
+        -:   10:void assertTrue(int a, int b) {
+        6:   11:    if (a == b) {
+        6:   12:        printf("Test: PASSED\n");
+        6:   13:    }
+        -:   14:    else {
+    #####:   15:        printf("Test: FAILED\n");
+    #####:   16:        failureCount++;
+        -:   17:    }
+        6:   18:}
+        -:   19:
+        -:   20:int main () {
+        2:   21:    int numbPlayers = 2;
+        2:   22:    int player = 0;
+        2:   23:    int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   24:               remodel, smithy, village, baron, great_hall};
+        2:   25:    int seed = 2000;
+        -:   26:    struct gameState state;
+        -:   27:
+        2:   28:    printf("Testing -> shuffle()\n");
+        2:   29:    memset(&state,23,sizeof(struct gameState));
+        2:   30:    initializeGame(numbPlayers, k, seed, &state);
+        -:   31:
+        2:   32:    state.deckCount[player] = 0;
+        2:   33:    printf("\nPlayer deck count is 0\n");
+        2:   34:    assertTrue(shuffle(player,&state),-1);
+        -:   35:
+        2:   36:    printf("\nPlayer deck count is 10 before and after shuffle\n");
+        2:   37:    state.deckCount[player] = 10;
+        2:   38:    shuffle(player,&state);
+        2:   39:    assertTrue(state.deckCount[player],10);
+        -:   40:
+        2:   41:    printf("\nCards are shuffled\n");
+        2:   42:    int pre_shuffle_card = state.deck[player][0];
+        2:   43:    shuffle(player,&state);
+        2:   44:    int post_shuffle_card = state.deck[player][0];
+        2:   45:    if (pre_shuffle_card != post_shuffle_card) {
+        2:   46:        assertTrue(1,1);
+        2:   47:    }
+        -:   48:    else {
+    #####:   49:        assertTrue(0,1);
+        -:   50:    }
+        -:   51:
+        2:   52:    if (failureCount) {
+    #####:   53:        printf("\nTEST FAILED\n");
+    #####:   54:        printf("Fails: %d\n",failureCount);
+    #####:   55:    }
+        -:   56:    else {
+        2:   57:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+        -:   58:    }
+        -:   59:
+        2:   60:    return 0;
+        -:   61:}
