@@ -5,8 +5,10 @@
 #include <assert.h>
 #include "rngs.h"
 
+// global count of test failures
 int failureCount = 0;
 
+// function to check if two ints are equal or not
 void assertTrue(int a, int b) {
     if (a == b) {
         printf("Test: PASSED\n");
@@ -17,9 +19,12 @@ void assertTrue(int a, int b) {
     }
 }
 
+// runs the tests
 int main () {
     int numbPlayers = 2;
     int player = 0;
+
+    // kingdom cards
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
     int seed = 2000;

@@ -5,8 +5,10 @@
 #include <assert.h>
 #include "rngs.h"
 
+// global count of test failures
 int failureCount = 0;
 
+// function to check if two ints are equal or not
 void assertTrue(int a, int b) {
     if (a == b) {
         printf("Test: PASSED\n");
@@ -17,7 +19,7 @@ void assertTrue(int a, int b) {
     }
 }
 
-
+// runs the tests
 int main () {
     int i;
     int treasureCount = 0;
@@ -26,21 +28,27 @@ int main () {
     int player0 = 0;
     int player1 = 1;
     int card;
-
     int handpos = 0;
     int choice1 = 0, choice2 = 0, choice3 = 0;
     int bonus = 0;
 
+    // kingdom cards
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
 
     int seed = 2000;
+
+    // game states
     struct gameState state, stateOriginal;
 
     printf("Testing -> adventurerCard()\n");
     memset(&state,23,sizeof(struct gameState));
     memset(&stateOriginal,23,sizeof(struct gameState));
+
+    // create a state
     initializeGame(numbPlayers, k, seed, &state);
+
+    // copy it to preserve it
     memcpy(&stateOriginal, &state, sizeof(struct gameState));
 
     cardEffect(adventurer, choice1, choice2, choice3, &state, handpos, &bonus);
@@ -48,6 +56,7 @@ int main () {
     printf("\nPlayer0 gains 2 cards\n");
     assertTrue(state.handCount[player0],stateOriginal.handCount[player0]+2);
 
+    // checks how much treasure is gained
     for (i = 0; i < state.handCount[player0]; i++) {
         card = state.hand[player0][i];
         if (card == copper || card == silver || card == gold) {
@@ -55,6 +64,7 @@ int main () {
         }
     }
 
+    // checks default treasure count
     for (i = 0; i < stateOriginal.handCount[player0]; i++) {
         card = stateOriginal.hand[player0][i];
         if (card == copper || card == silver || card == gold) {

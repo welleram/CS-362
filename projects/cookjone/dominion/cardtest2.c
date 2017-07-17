@@ -5,8 +5,10 @@
 #include <assert.h>
 #include "rngs.h"
 
+// global count of test failures
 int failureCount = 0;
 
+// function to check if two ints are equal or not
 void assertTrue(int a, int b) {
     if (a == b) {
         printf("Test: PASSED\n");
@@ -17,7 +19,7 @@ void assertTrue(int a, int b) {
     }
 }
 
-
+// runs the tests
 int main () {
     int i;
     int numbPlayers = 2;
@@ -28,6 +30,7 @@ int main () {
     int choice1 = 0, choice2 = 0, choice3 = 0;
     int bonus = 0;
 
+    // kingdom cards
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
 
@@ -37,7 +40,11 @@ int main () {
     printf("Testing -> smithyCard()\n");
     memset(&state,23,sizeof(struct gameState));
     memset(&stateOriginal,23,sizeof(struct gameState));
+
+    // create the game state
     initializeGame(numbPlayers, k, seed, &state);
+
+    // copy it to preserve it
     memcpy(&stateOriginal, &state, sizeof(struct gameState));
 
     cardEffect(smithy, choice1, choice2, choice3, &state, handpos, &bonus);

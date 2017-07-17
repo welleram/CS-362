@@ -5,8 +5,10 @@
 #include <assert.h>
 #include "rngs.h"
 
+// global count of test failures
 int failureCount = 0;
 
+// function to check if two ints are equal or not
 void assertTrue(int a, int b) {
     if (a == b) {
         printf("Test: PASSED\n");
@@ -17,11 +19,13 @@ void assertTrue(int a, int b) {
     }
 }
 
-
+// runs the tests
 int main () {
     int i, b;
     int numbPlayers = 2;
     int player = 0;
+
+    // kingdom cards
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
     int seed = 2000;
@@ -33,6 +37,7 @@ int main () {
     int silvers[MAX_HAND];
     int golds[MAX_HAND];
 
+    // arrays full of designated treasure
     for (i = 0; i < MAX_HAND; i++) {
         coppers[i] = copper;
         silvers[i] = silver;
@@ -41,6 +46,7 @@ int main () {
 
     printf("Testing -> updateCoins()");
 
+    // test how updateCoins handles each treasure and a different bonus and hand count
     for (handCount = 0; handCount <= 5; handCount = handCount + 5) {
         printf("\n\nTreasure cards: %d\n",handCount);
         printf("Bonus: %d\n", bonus);
@@ -49,6 +55,7 @@ int main () {
         b = initializeGame(numbPlayers, k, seed, &state);
         state.handCount[player] = handCount;
 
+        // fill hand with all coppers
         memcpy(state.hand[player],coppers,sizeof(int)*handCount);
         updateCoins(player,&state,bonus);
 
@@ -58,6 +65,7 @@ int main () {
 
         assertTrue(state.coins,handCount*1+bonus);
 
+        // fill hand with all silvers
         memcpy(state.hand[player],silvers,sizeof(int)*handCount);
         updateCoins(player,&state,bonus);
 
@@ -67,6 +75,7 @@ int main () {
 
         assertTrue(state.coins,handCount*2+bonus);
 
+        // fill hand with all golds
         memcpy(state.hand[player],golds,sizeof(int)*handCount);
         updateCoins(player,&state,bonus);
 
