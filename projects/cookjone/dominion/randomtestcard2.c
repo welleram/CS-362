@@ -64,14 +64,6 @@ void checkCouncil_RoomCard(int p, int handPos, struct gameState *post) {
     if (!(postHC == preHC && postDC == preDC)) {
         deckHandCountFails++;
     }
-    for (i = 0; i < pre.numPlayers; i++) {
-        if (i != p) {
-            if (!(post->handCount[i] == pre.handCount[i] &&
-                  post->deckCount[i] == pre.deckCount[i])) {
-                      deckHandCountFails++;
-            }
-        }
-    }
 }
 
 int main () {
