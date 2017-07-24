@@ -8,35 +8,46 @@
 #include <time.h>
 #include <math.h>
 
+// fail counter variables
 int cardEffectFails = 0;
 int shuffleFails = 0;
 int drawCardFails = 0;
 int deckHandCountFails = 0;
 int treasureCountFails = 0;
 
+// function to check the adventurerCard
 void checkAdventurerCard(int p, struct gameState *post) {
     int PostTreasureCount = 0;
     int PreTreasureCount = 0;
     int temphand[MAX_HAND];
     int drawntreasure = 0;
+    // game state variable to manually act on the functions actions
     struct gameState pre;
     int cardDrawn, card;
     int bonus = 0;
     int r,s,t,i;
     int z = 0;
+    // copy the passed in game state to pre
     memcpy(&pre,post,sizeof(struct gameState));
+
+    // call the card effect function with the adventurerCard
     r = cardEffect(adventurer,0,0,0,post,0,&bonus);
+
+    // check if cardeffect failed
     if (r) {
         cardEffectFails++;
     }
+    // execute the adventurerCard actions
     while(drawntreasure < 2) {
             if (pre.deckCount[p] < 1) {//if the deck is empty we need to shuffle discard and add to deck
                     s = shuffle(p, &pre);
+                    // check if shuffle failed
                     if (s == -1 && pre.deckCount[p] >= 1) {
                       shuffleFails++;
                     }
             }
             t = drawCard(p, &pre);
+            // check if drawcard failed
             if (t == -1 && pre.deckCount[p] != 0) {
                 drawCardFails++;
             }
@@ -53,27 +64,34 @@ void checkAdventurerCard(int p, struct gameState *post) {
             pre.discard[p][pre.discardCount[p]++] = temphand[z - 1]; // discard all cards in play that have been drawn
             z = z - 1;
     }
+    // get the PosttreasureCount
     for (i = 0; i < post->handCount[p]; i++) {
         card = post->hand[p][i];
         if (card == copper || card == silver || card == gold) {
             PostTreasureCount++;
         }
     }
+    // get the PretreasureCount
     for (i = 0; i < pre.handCount[p]; i++) {
         card = pre.hand[p][i];
         if (card == copper || card == silver || card == gold) {
             PreTreasureCount++;
         }
     }
+    // check if treasures match up
     if (PostTreasureCount != PreTreasureCount) {
       treasureCountFails++;
     }
+
+    // get values of hand and deck counts
     int postHC = post->handCount[p];
     int postDC = post->deckCount[p];
     int postDCC = post->discardCount[p];
     int preHC = pre.handCount[p];
     int preDC = pre.deckCount[p];
     int preDCC = pre.discardCount[p];
+
+    // check if the hand and deck counts dont match up
     if (!(postHC == preHC && postDC == preDC && postDCC == preDCC)) {
         deckHandCountFails++;
     }
@@ -87,26 +105,34 @@ int main () {
     int iterations = 10000;
     int treasures[] = {copper,silver,gold};
     int numTreasures;
-    int i, n, p;
+    int i, n, player;
     struct gameState G;
+
+    // there has to be a min of 3 cards in the deck, hand
     int min = 3;
     srand(time(NULL));
+
+    // randomly initialized the game state
     for (n = 0; n < iterations; n++) {
       for (i = 0; i < sizeof(struct gameState); i++) {
         ((char*)&G)[i] = floor(Random() * 256);
       }
-      p = floor(Random() * MAX_PLAYERS);
-      G.deckCount[p] = floor(Random() * ((MAX_DECK - min) + 1) + min);
-      numTreasures = floor(Random() * ((G.deckCount[p] - min) + 1) + min);
-      for (i = 0; i < numTreasures; i++) {
-        G.deck[p][i] = treasures[rand() % 3];
-      }
-      G.discardCount[p] = 0;//floor(Random() * ((G.deckCount[p] - numTreasures - min) + 1) + min);
-      G.handCount[p] = floor(Random() * ((MAX_HAND - min) + 1) + min);
-      G.playedCardCount = floor(Random() * ((MAX_DECK - 1 - min) + 1) + min);
-      G.whoseTurn = p;
+      // randomly select appropriate values
+      player = floor(Random() * MAX_PLAYERS);
+      G.deckCount[player] = floor(Random() * ((MAX_DECK - min) + 1) + min);
+      numTreasures = floor(Random() * ((G.deckCount[player] - min) + 1) + min);
 
-      checkAdventurerCard(p, &G);
+      // put a min of 3 treasure cards in deck
+      for (i = 0; i < numTreasures; i++) {
+        G.deck[player][i] = treasures[rand() % 3];
+      }
+      G.discardCount[player] = 0;
+      G.handCount[player] = floor(Random() * ((MAX_HAND - min) + 1) + min);
+      G.playedCardCount = floor(Random() * ((MAX_DECK - 1 - min) + 1) + min);
+      G.whoseTurn = player;
+
+      // call the check function
+      checkAdventurerCard(player, &G);
     }
     int totalFails = cardEffectFails + drawCardFails + shuffleFails +
                     deckHandCountFails + treasureCountFails;
