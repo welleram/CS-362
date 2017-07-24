@@ -90,7 +90,7 @@ int main () {
         G.deckCount[player] = floor(Random() * MAX_DECK);
         G.discardCount[player] = floor(Random() * MAX_DECK);
         G.handCount[player] = floor(Random() * MAX_HAND);
-        G.playerlayedCardCount = floor(Random() * (MAX_DECK-1));
+        G.playedCardCount = floor(Random() * (MAX_DECK-1));
         G.whoseTurn = player;
         // call the check function
         checkSmithyCard(player,&G);
