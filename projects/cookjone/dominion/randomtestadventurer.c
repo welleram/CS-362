@@ -128,7 +128,6 @@ int main () {
       }
       G.discardCount[player] = 0;
       G.handCount[player] = floor(Random() * ((MAX_HAND - min) + 1) + min);
-      G.playedCardCount = floor(Random() * ((MAX_DECK - 1 - min) + 1) + min);
       G.whoseTurn = player;
 
       // call the check function
