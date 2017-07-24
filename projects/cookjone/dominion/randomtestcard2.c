@@ -13,13 +13,14 @@ int discardCardFails = 0;
 int drawCardFails = 0;
 int deckHandCountFails = 0;
 int numBuysFails = 0;
+int otherPlayerDeckHandFails = 0;
 
-void checkCouncil_RoomCard(int p, int handPos, struct gameState *post) {
+void checkCouncil_RoomCard(int p, struct gameState *post) {
     int r,s,t,u,v,w,x,i;
     int bonus = 0;
     struct gameState pre;
     memcpy(&pre,post,sizeof(struct gameState));
-    r = cardEffect(council_room,0,0,0,post,handPos,&bonus);
+    r = cardEffect(council_room,0,0,0,post,0,&bonus);
     s = drawCard(p,&pre);
     t = drawCard(p,&pre);
     u = drawCard(p,&pre);
@@ -33,7 +34,7 @@ void checkCouncil_RoomCard(int p, int handPos, struct gameState *post) {
             }
         }
     }
-    x = discardCard(handPos, p, &pre, 0);
+    x = discardCard(0, p, &pre, 0);
     int postHC = post->handCount[p];
     int postDC = post->deckCount[p];
     int preHC = pre.handCount[p];
@@ -64,6 +65,14 @@ void checkCouncil_RoomCard(int p, int handPos, struct gameState *post) {
     if (!(postHC == preHC && postDC == preDC)) {
         deckHandCountFails++;
     }
+    for (i = 0; i < pre.numPlayers; i++) {
+        if (i != p) {
+            if (!(post->handCount[i] == pre.handCount[i] &&
+                  post->deckCount[i] == pre.deckCount[i])) {
+                      otherPlayerDeckHandFails++;
+            }
+        }
+    }
 }
 
 int main () {
@@ -72,18 +81,23 @@ int main () {
     printf("Function: council_roomCard()\n");
     printf("***********************\n");
 
-    int iterations = 100000;
-    int i, n, player, deckCount, handCount, discardCount, handPos = 0;
+    int iterations = 10000;
+    int i, n, player, deckCount, handCount, discardCount;
     int numberOfPlayers[] = {2,3,4};
     struct gameState G;
     srand(time(NULL));
 
     for (n = 0; n < iterations; n++) {
         for (i = 0; i < sizeof(struct gameState); i++) {
-            ((char*)&G)[i] = floor(rand() * 256);
+            ((char*)&G)[i] = floor(Random() * 256);
         }
         G.numPlayers = numberOfPlayers[rand() % 3];
-        player = rand() % G.numPlayers;
+        G.numBuys = 1;
+        G.playedCardCount = floor(Random() * (MAX_DECK-1));
+        player = G.numPlayers - 2;
+        if (player >=   G.numPlayers) {
+          printf("ERROR\n");
+        }
         deckCount = floor(Random() * MAX_DECK);
         handCount = floor(Random() * MAX_HAND);
         discardCount = floor(Random() * MAX_DECK);
@@ -93,7 +107,7 @@ int main () {
             G.handCount[i] = handCount;
             G.discardCount[i] = discardCount;
         }
-        checkCouncil_RoomCard(player,handPos,&G);
+        checkCouncil_RoomCard(player,&G);
     }
     int totalFails = cardEffectFails + discardCardFails + drawCardFails
                     + deckHandCountFails + numBuysFails;
@@ -110,7 +124,8 @@ int main () {
         printf("cardEffect() failed: %d\n",cardEffectFails);
         printf("discardCard() failed: %d\n",discardCardFails);
         printf("numBuys Count mismatch: %d\n",numBuysFails);
-        printf("Hand/Deck Count mismatch: %d\n",deckHandCountFails);
+        printf("Other players hand/deck count mismatch: %d\n",otherPlayerDeckHandFails);
+        printf("Selected player hand/deck count mismatch: %d\n",deckHandCountFails);
         printf ("***** FAILED RANDOM TEST *****\n\n");
     }
     printf ("****** COVERAGE ******\n");

@@ -17,6 +17,10 @@ int checkDrawCard(int p, struct gameState *post) {
   //	  p, pre.handCount[p], pre.deckCount[p], pre.discardCount[p]);
 
   r = drawCard (p, post);
+  drawCard (p, post);
+  drawCard (p, post);
+  drawCard (p, post);drawCard (p, post);
+  
 
   //printf ("drawCard POST: p %d HC %d DeC %d DiC %d\n",
   //     p, post->handCount[p], post->deckCount[p], post->discardCount[p]);

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 int compare(const void* a, const void* b) {
         if (*(int*)a > *(int*)b)
@@ -664,6 +665,7 @@ void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *
                   z++;
           }
   }
+
   while(z - 1 >= 0) {
           state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
           z = z - 1;
@@ -689,7 +691,7 @@ void council_roomCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+4 Cards
   // bug -> allows the player to add 5 cards to their hand, instead of only 4
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 5; i++)
   {
           drawCard(currentPlayer, state);
   }

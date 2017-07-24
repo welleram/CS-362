@@ -13,17 +13,16 @@ int discardCardFails = 0;
 int drawCardFails = 0;
 int deckHandCountFails = 0;
 
-void checkSmithyCard(int p, int handPos, struct gameState *post) {
+void checkSmithyCard(int p, struct gameState *post) {
     int r,s,t,u,v;
     struct gameState pre;
     memcpy(&pre,post,sizeof(struct gameState));
     int bonus = 0;
-    post->whoseTurn = p;
-    r = cardEffect(smithy,0,0,0,post,handPos,&bonus);
+    r = cardEffect(smithy,0,0,0,post,0,&bonus);
     s = drawCard(p,&pre);
     t = drawCard(p,&pre);
     u = drawCard(p,&pre);
-    v = discardCard(handPos, p, &pre, 0);
+    v = discardCard(0, p, &pre, 0);
     int postHC = post->handCount[p];
     int postDC = post->deckCount[p];
     int preHC = pre.handCount[p];
@@ -56,20 +55,22 @@ int main () {
     printf("Function: simthyCard()\n");
     printf("***********************\n");
 
-    int iterations = 9000;
-    int i, n, p, handPos = 0;
+    int iterations = 10000;
+    int i, n, p;
     struct gameState G;
     srand(time(NULL));
 
     for (n = 0; n < iterations; n++) {
         for (i = 0; i < sizeof(struct gameState); i++) {
-            ((char*)&G)[i] = floor(rand() * 256);
+            ((char*)&G)[i] = floor(Random() * 256);
         }
         p = floor(Random() * MAX_PLAYERS);
         G.deckCount[p] = floor(Random() * MAX_DECK);
         G.discardCount[p] = floor(Random() * MAX_DECK);
         G.handCount[p] = floor(Random() * MAX_HAND);
-        checkSmithyCard(p,handPos,&G);
+        G.playedCardCount = floor(Random() * (MAX_DECK-1));
+        G.whoseTurn = p;
+        checkSmithyCard(p,&G);
     }
     int totalFails = cardEffectFails + discardCardFails +
                         drawCardFails + deckHandCountFails;
