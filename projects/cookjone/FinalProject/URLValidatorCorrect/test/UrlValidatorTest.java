@@ -105,6 +105,7 @@ public class UrlValidatorTest extends TestCase {
          boolean result = urlVal.isValid(url);
          
          if(result == true)
+        	 System.out.println("GOOD");
         	 System.out.println(url);
          assertEquals(url, expected, result);
          
