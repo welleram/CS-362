@@ -676,8 +676,8 @@ void adventurerCard(int currentPlayer, int temphand[], int z, struct gameState *
 void smithyCard(int currentPlayer, int handPos, struct gameState *state){
   int i;
   //+3 Cards
-  // bug -> allows the player to add 4 cards to their hand, instead of only 3
-  for (i = 0; i < 4; i++)
+  // **FIXED** bug -> allows the player to add 4 cards to their hand, instead of only 3
+  for (i = 0; i < 3; i++)
   {
           drawCard(currentPlayer, state);
   }
