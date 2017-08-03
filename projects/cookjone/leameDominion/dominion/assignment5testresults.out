@@ -1,0 +1,416 @@
+Results for Assignment 5 test suit:
+unittest1.c:
+Testing -> updateCoins()
+
+Treasure cards: 0
+Bonus: 1
+
+Coin Count - copper
+Actual: 1
+Expected: 1
+Test: PASSED
+
+Coin Count - silver
+Actual: 1
+Expected: 1
+Test: PASSED
+
+Coin Count - gold
+Actual: 1
+Expected: 1
+Test: PASSED
+
+
+Treasure cards: 5
+Bonus: 3
+
+Coin Count - copper
+Actual: 8
+Expected: 8
+Test: PASSED
+
+Coin Count - silver
+Actual: 13
+Expected: 13
+Test: PASSED
+
+Coin Count - gold
+Actual: 18
+Expected: 18
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'unittest1.c'
+Lines executed:89.80% of 49
+unittest1.c:creating 'unittest1.c.gcov'
+
+File 'dominion.c'
+Lines executed:17.08% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+unittest2.c:
+Testing -> isGameOver()
+
+Province cards empty
+Test: PASSED
+
+Three supply piles empty
+Test: PASSED
+
+Province cards not empty
+
+Three supply piles not empty
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'unittest2.c'
+Lines executed:84.85% of 33
+unittest2.c:creating 'unittest2.c.gcov'
+
+File 'dominion.c'
+Lines executed:18.92% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+unittest3.c:
+Testing -> shuffle()
+
+Player deck count is 0
+Test: PASSED
+
+Player deck count is 10 before and after shuffle
+Test: PASSED
+
+Cards are shuffled
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'unittest3.c'
+Lines executed:82.35% of 34
+unittest3.c:creating 'unittest3.c.gcov'
+
+File 'dominion.c'
+Lines executed:19.08% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+unittest4.c:
+Testing -> gainCard()
+
+Gold supply pile is empty
+Test: PASSED
+
+Add card to deck
+Test: PASSED
+
+Add card to hand
+Test: PASSED
+
+Add card to discard pile
+Test: PASSED
+
+Decrease gold supply
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'unittest4.c'
+Lines executed:86.49% of 37
+unittest4.c:creating 'unittest4.c.gcov'
+
+File 'dominion.c'
+Lines executed:21.54% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+cardtest1.c:
+Testing -> adventurerCard()
+
+Player0 gains 2 cards
+Test: PASSED
+
+Player0 gains 2 treasure cards
+Test: PASSED
+
+No change to victory card piles
+Province Pile
+Test: PASSED
+Duchy Pile
+Test: PASSED
+Estate Pile
+Test: PASSED
+
+No change to kingdom card piles
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+
+Player1 was not affected
+Hand Count
+Test: PASSED
+Deck Count
+Test: PASSED
+
+TEST SUCCESSFULLY COMPLETED
+
+File 'cardtest1.c'
+Lines executed:91.80% of 61
+cardtest1.c:creating 'cardtest1.c.gcov'
+
+File 'dominion.c'
+Lines executed:24.62% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+Testing -> smithyCard()
+
+Player0 gains 3 cards
+Test: FAILED
+
+Player0 gains 3 cards from his own pile
+Test: FAILED
+
+No change to victory card piles
+Province Pile
+Test: PASSED
+Duchy Pile
+Test: PASSED
+Estate Pile
+Test: PASSED
+
+No change to kingdom card piles
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+
+Player1 was not affected
+Hand Count
+Test: PASSED
+Deck Count
+Test: PASSED
+
+TEST FAILED
+Fails: 2
+File 'cardtest2.c'
+Lines executed:97.87% of 47
+cardtest2.c:creating 'cardtest2.c.gcov'
+
+File 'dominion.c'
+Lines executed:27.38% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+cardtest3.c:
+Testing -> council_roomCard()
+
+Player1 gains 4 cards
+Test: FAILED
+
+Player1 gains 4 cards from his own pile
+Test: FAILED
+
+Player1 number of buys increments
+Test: PASSED
+
+No change to victory card piles
+Province Pile
+Test: PASSED
+Duchy Pile
+Test: PASSED
+Estate Pile
+Test: PASSED
+
+No change to kingdom card piles
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+
+Player0 gains a card
+Test: FAILED
+
+Player0 gains a card from his own deck
+Test: FAILED
+
+TEST FAILED
+Fails: 4
+File 'cardtest3.c'
+Lines executed:97.92% of 48
+cardtest3.c:creating 'cardtest3.c.gcov'
+
+File 'dominion.c'
+Lines executed:29.38% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+cardtest4.c:
+Testing -> villageCard()
+
+Player0 gains 1 card
+Test: PASSED
+
+Player0 gains 1 card from his own pile
+Test: PASSED
+
+Player0 gains 2 actions
+Test: FAILED
+
+No change to victory card piles
+Province Pile
+Test: PASSED
+Duchy Pile
+Test: PASSED
+Estate Pile
+Test: PASSED
+
+Player1 was not affected
+Hand Count
+Test: PASSED
+Deck Count
+Test: PASSED
+
+No change to kingdom card piles
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+checking card piles...
+Test: PASSED
+
+TEST FAILED
+Fails: 1
+File 'cardtest4.c'
+Lines executed:97.96% of 49
+cardtest4.c:creating 'cardtest4.c.gcov'
+
+File 'dominion.c'
+Lines executed:30.31% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+randomtestcard1.c:
+***** RANDOM TEST *****
+File: randomcardtest1.c
+Function: simthyCard()
+***********************
+
+***** RESULTS *****
+PASSED TESTS: 1
+FAILED TESTS: 9999
+
+***** FAILURE REPORT *****
+drawCard() failed: 0
+cardEffect() failed: 0
+discardCard() failed: 0
+Hand/Deck Count mismatch: 9999
+***** FAILED RANDOM TEST *****
+
+****** COVERAGE ******
+File 'randomtestcard1.c'
+Lines executed:77.27% of 66
+randomtestcard1.c:creating 'randomtestcard1.c.gcov'
+
+File 'dominion.c'
+Lines executed:33.23% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+randomtestcard2.c:
+***** RANDOM TEST *****
+File: randomcardtest2.c
+Function: council_roomCard()
+***********************
+
+***** RESULTS *****
+PASSED TESTS: 10000
+FAILED TESTS: 0
+***** PASSED RANDOM TEST *****
+
+****** COVERAGE ******
+File 'randomtestcard2.c'
+Lines executed:71.00% of 100
+randomtestcard2.c:creating 'randomtestcard2.c.gcov'
+
+File 'dominion.c'
+Lines executed:33.23% of 650
+dominion.c:creating 'dominion.c.gcov'
+
+randomtestadventurer.c:
+***** RANDOM TEST *****
+File: randomtestadventurer.c
+Function: adventurerCard()
+***********************
+
+***** RESULTS *****
+PASSED TESTS: 10000
+FAILED TESTS: 0
+***** PASSED RANDOM TEST *****
+
+****** COVERAGE ******
+File 'randomtestadventurer.c'
+Lines executed:76.00% of 100
+randomtestadventurer.c:creating 'randomtestadventurer.c.gcov'
+
+File 'dominion.c'
+Lines executed:34.00% of 650
+dominion.c:creating 'dominion.c.gcov'
+
