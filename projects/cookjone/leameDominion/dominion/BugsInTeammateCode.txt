@@ -1,0 +1,76 @@
+The first bug that was found occurred in the play_smithy function on line 696.
+This bug was found by setting up the game state and then calling cardEffect with
+smithy as the card argument. Once the cardEffect function returned, the hand
+count and deck count for each player was compared to the expected outcome. It
+was found that the bug caused the current player to draw 4 cards instead of
+only 3. The root cause of this bug was that the for loop that was in charge of
+drawing the cards for the current player had its upper bound increased by one.
+The correct version and the buggy version of the code block can be seen below.
+
+        // draw 3 cards
+        for (i = 0; i < 3; i++)
+        {
+                drawCard(currentPlayer, state);
+        }
+
+        // **BUG** draw 4 Cards
+        for (i = 0; i < 4; i++)
+        {
+                drawCard(currentPlayer, state);
+        }
+
+As a whole, I would not say this is an especially interesting bug. This type of
+bug could have simply been a slip of a finger, pressing 4 instead of 3.
+
+
+The second bug that was found occurred in the play_council_room function on
+line 722. This bug was found by setting up the game state and then calling
+cardEffect with council_room as the card argument. Once the cardEffect function
+returned, the hand count and deck count for each player was compared to the
+expected outcome. It was found that the bug caused the program to miss player 0
+when it came time for each player, other than current player, to draw a card.
+The root cause of this bug was that the for loop that was in charge of drawing
+the cards for all others players, besides the current player, had its lower
+bound increased by one. The correct version and the buggy version of the code
+block can be seen below.
+
+        // Each player, besides the current player, draws a card
+        for (i = 0; i < state->numPlayers; i++)
+        {
+                if (i != currentPlayer)
+                {
+                        drawCard(i, state);
+                }
+        }
+
+        // **BUG** Each player, besides the current player, draws a card
+        for (i = 1; i < state->numPlayers; i++)
+        {
+                if (i != currentPlayer)
+                {
+                        drawCard(i, state);
+                }
+        }
+
+As a whole, I would say this is a somewhat interesting bug. This type of bug
+might always not show up, let alone be caught. If for example, the current
+player in 0, then this bug would have no effect.
+
+
+The third bug that was found occurred in the play_village function on line 745.
+This bug was found by setting up the game state and then calling cardEffect with
+village as the card argument. Once the cardEffect function returned, the number
+of actions for the game state was compared to the expected outcome. It was found
+that the bug caused the numActions count to one less than it was suppose to be.
+The root cause of this bug was that the variable numActions was only incremented
+once when it was suppose to incremented twice. The correct version and the buggy
+version of the code block can be seen below.
+
+        // +2 Actions
+        state->numActions = state->numActions + 2;
+
+        // **BUG** +1 Action
+       state->numActions = state->numActions + 1;
+
+Again, as a whole, I would not say this is an especially interesting bug. This
+type of bug could have simply been a slip of a finger, pressing 1 instead of 2.
