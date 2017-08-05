@@ -40,10 +40,24 @@ public class UrlValidatorTest extends TestCase {
    
    public void testManualTest()
    {
-	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-	   System.out.println(urlVal.isValid("http://www.amazon.com"));
-	   
-	   
+	 UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	 // Expected: pass     Result: fail
+	 System.out.println(urlVal.isValid("http://www.amazon.com:65535"));
+	 
+	 // Expected: pass     Result: fail
+	 System.out.println(urlVal.isValid("http://www.amazon.com:6553"));
+	 
+	 // Expected: pass     Result: pass
+	 System.out.println(urlVal.isValid("http://www.amazon.com:655"));
+	 
+	 // Expected: pass     Result: pass
+	 System.out.println(urlVal.isValid("http://www.amazon.com:65"));
+	 
+	 // Expected: pass     Result: pass
+	 System.out.println(urlVal.isValid("http://www.amazon.com:6"));
+	 
+	 // Expected: fail     Result: fail
+	 System.out.println(urlVal.isValid("http://www.amazon.com:"));
    }
    
    
